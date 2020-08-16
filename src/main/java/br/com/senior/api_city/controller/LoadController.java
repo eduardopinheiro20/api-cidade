@@ -59,6 +59,7 @@ public class LoadController {
         return citiesDto;
     }
 
+    //Retorna a Qtde de cidades por estado
     @GetMapping(value = "/getQtdeByUf/{uf}")
     @ResponseBody
     public Integer getQtdeByUf(@PathVariable("uf") String uf) {
