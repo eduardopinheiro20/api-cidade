@@ -25,6 +25,7 @@ import org.springframework.core.io.Resource;
 
 @Configuration
 @EnableBatchProcessing
+@EnableAutoConfiguration
 public class SpringBatchConfig {
 
     @Bean
@@ -51,7 +52,7 @@ public class SpringBatchConfig {
     public FlatFileItemReader<City> itemReader(@Value("${input}") Resource resource){
 
         FlatFileItemReader<City> flatFileItemReader= new FlatFileItemReader<>();
-        flatFileItemReader.setResource(new ClassPathResource("Desafio Cidades - Back End.csv"));
+        flatFileItemReader.setResource(resource);
         flatFileItemReader.setName("CSV-Reader");
         flatFileItemReader.setLinesToSkip(1);
         flatFileItemReader.setLineMapper(lineMapper());
@@ -76,5 +77,10 @@ public class SpringBatchConfig {
         defaultLineMapper.setFieldSetMapper((fieldSetMapper));
 
         return defaultLineMapper;
+    }
+
+    @Bean
+    public City city() {
+        return new City();
     }
 }

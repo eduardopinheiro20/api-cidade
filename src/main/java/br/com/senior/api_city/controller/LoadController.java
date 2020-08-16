@@ -1,21 +1,21 @@
 package br.com.senior.api_city.controller;
 
+import br.com.senior.api_city.dto.CityDto;
+import br.com.senior.api_city.model.City;
+import br.com.senior.api_city.service.CityService;
 import org.springframework.batch.core.*;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/load")
-
+@CrossOrigin(origins = "*")
 public class LoadController {
 
     @Autowired
@@ -23,6 +23,9 @@ public class LoadController {
 
     @Autowired
     Job job;
+
+    @Autowired
+    private CityService cityService;
 
     @GetMapping
     public BatchStatus load() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
@@ -34,12 +37,32 @@ public class LoadController {
 
         System.out.println("JobExecution: " + jobExecution.getStatus());
 
-        System.out.println("Batch is Running");
-        while (jobExecution.isRunning()){
-            System.out.println("...");
-
-        }
-
         return jobExecution.getStatus();
     }
+
+    //Retorna Somente cidades que são Capitais ordenadas por nome;
+    @GetMapping(value = "/getCapitals")
+    public List<CityDto> getCapitals() {
+        List<CityDto> citiesDto = new ArrayList<>();
+        List<City> cities =  this.cityService.getCapitalCitiesOrderByName();
+
+        for(City city : cities) {
+            CityDto cityDto = new CityDto();
+            cityDto = cityService.convertCity(city);
+            citiesDto.add(cityDto);
+        }
+        Collections.sort (citiesDto, new Comparator<CityDto>() {
+            public int compare (CityDto c1, CityDto c2) {
+                return c1.getName().toUpperCase().compareTo (c2.getName().toUpperCase());
+            }
+        });
+        return citiesDto;
+    }
+
+    @GetMapping(value = "/getQtdeByUf/{uf}")
+    @ResponseBody
+    public Integer getQtdeByUf(@PathVariable("uf") String uf) {
+        return this.cityService.getNumberCitiesPerState(uf);
+    }
+
 }
