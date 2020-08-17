@@ -23,8 +23,8 @@ A empresa XPTO Systems precisa construir um sistema web para leitura e manutenç
 
 
 
-Para rodar o sistema voce só terá que clonar e configurar através do Maven as dependências e versão so Spring Boot.
+Para rodar o sistema voce só terá que clonar e configurar através do Maven as dependências referentes ao Spring Boot.
 
-Para realizar o teste do primeiro requisito e o banco H2 ser persistido com os dados do arquivo CSV, o usuário tem que apenas acessar o caminho (http://localhost:8081/load/), após o sistema estiver funcionando.
+Para realizar o teste do primeiro requisito o banco H2 ser persistido com os dados do arquivo CSV, o usuário tem que apenas acessar o caminho http://localhost:8081/load/ (Apos o sistema estiver em mode de execução).
 
 Os requisitos 7 e 9, ainda não foram desenvolvidos, no tempo solicitado. 
