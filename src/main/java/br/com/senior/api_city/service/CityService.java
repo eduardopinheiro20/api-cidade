@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 /**
  *
  * @author eduardo-pinheiro
@@ -114,7 +113,6 @@ public class CityService implements ICityService {
         }
         return deleted;
     }
-
 
     public CityDto convertCity(City city) {
         CityDto cityDto = new CityDto();
