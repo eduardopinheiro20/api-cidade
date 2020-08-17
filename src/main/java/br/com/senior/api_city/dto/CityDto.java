@@ -1,6 +1,5 @@
 package br.com.senior.api_city.dto;
 
-
 /**
  *
  * @author  eduardo-pinheiro

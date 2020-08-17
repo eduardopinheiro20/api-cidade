@@ -1,6 +1,7 @@
 package br.com.senior.api_city.controller;
 
 import br.com.senior.api_city.dto.CityDto;
+import br.com.senior.api_city.dto.StateDto;
 import br.com.senior.api_city.model.City;
 import br.com.senior.api_city.service.CityService;
 import org.springframework.batch.core.*;
@@ -66,4 +67,15 @@ public class LoadController {
     public Integer getQtdeByUf(@PathVariable("uf") String uf) {
         return this.cityService.getNumberCitiesPerState(uf);
     }
+
+    //Retorna no nome do Estado com maior numero de cidades
+    @GetMapping(value = "/getMaxCitiesForState")
+    @ResponseBody
+    public StateDto getMaxCitiesPerState() {
+        StateDto stateDto = new StateDto();
+        stateDto = this.cityService.getMaxUfState();
+        return stateDto;
+    }
+
+
 }

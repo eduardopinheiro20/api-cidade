@@ -1,5 +1,6 @@
 package br.com.senior.api_city.config;
 
+import br.com.senior.api_city.dto.StateDto;
 import br.com.senior.api_city.model.City;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -82,5 +83,10 @@ public class SpringBatchConfig {
     @Bean
     public City city() {
         return new City();
+    }
+
+    @Bean
+    public StateDto stateDto(){
+        return new StateDto();
     }
 }

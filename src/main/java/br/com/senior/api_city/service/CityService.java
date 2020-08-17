@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.senior.api_city.dto.CityDto;
+import br.com.senior.api_city.dto.StateDto;
 import br.com.senior.api_city.model.City;
 import br.com.senior.api_city.reposity.CityRepository;
 import br.com.senior.api_city.service.interfaces.ICityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -31,8 +31,8 @@ public class CityService implements ICityService {
 
     private Double minDistance;
 
-//    @Autowired
-//    private StateDTO stateMaxCities;
+    @Autowired
+    private StateDto stateMaxCities;
 //
 //    @Autowired
 //    private StateDTO stateMinCities;
@@ -70,6 +70,34 @@ public class CityService implements ICityService {
 
     public Integer getNumberCitiesPerState(String uf) {
         return this.cityRepository.findByUf(uf).size();
+    }
+
+    public StateDto getMaxUfState() {
+        this.stateMaxCities = null;
+        List<City> cities = this.cityRepository.findByCapital(Boolean.TRUE);
+        List<StateDto> states = new ArrayList<>();
+
+        for(City city : cities) {
+            StateDto stateDto = new StateDto();
+            stateDto.setUf(city.getUf());
+            states.add(stateDto);
+        }
+        if(!states.isEmpty()) {
+            for(StateDto state : states) {
+                state.setNumberOfCities(this.cityRepository.countByUf(state.getUf()));
+                if(this.stateMaxCities == null || this.stateMaxCities.getNumberOfCities() == null) {
+                    this.stateMaxCities = state;
+                    System.out.println(this.stateMaxCities.toString());
+                }
+                else {
+                    if(this.stateMaxCities.getNumberOfCities() < state.getNumberOfCities()) {
+                        this.stateMaxCities = state;
+                        System.out.println(this.stateMaxCities.toString());
+                    }
+                }
+            }
+        }
+        return this.stateMaxCities;
     }
 
 //

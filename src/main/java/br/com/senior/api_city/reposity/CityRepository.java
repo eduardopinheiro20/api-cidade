@@ -4,18 +4,15 @@ import br.com.senior.api_city.model.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import java.util.List;
-
 
 /**
  *
  * @author eduardo-pinheiro
  *
  */
-
 
 @NamedQueries({
         @NamedQuery(name = "CityRepository.findByCapital",
