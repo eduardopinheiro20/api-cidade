@@ -8,7 +8,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-
+/**
+ *
+ * @author eduardo-pinheiro
+ *
+ */
 @Component
 public class DBWriter implements ItemWriter<City> {
 

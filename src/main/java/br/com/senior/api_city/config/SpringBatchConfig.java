@@ -20,10 +20,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-
+/**
+ *
+ * @author eduardo-pinheiro
+ *
+ */
 @Configuration
 @EnableBatchProcessing
 @EnableAutoConfiguration
@@ -34,7 +37,7 @@ public class SpringBatchConfig {
                    StepBuilderFactory stepBuilderFactory,
                    ItemReader<City> itemReader,
                    ItemProcessor<City, City> itemProcessor,
-                   ItemWriter<City> itemWriter ){
+                   ItemWriter<City> itemWriter) {
 
         Step step = stepBuilderFactory.get("ETL-file-load")
                 .<City, City>chunk(5566)
@@ -50,9 +53,9 @@ public class SpringBatchConfig {
     }
 
     @Bean
-    public FlatFileItemReader<City> itemReader(@Value("${input}") Resource resource){
+    public FlatFileItemReader<City> itemReader(@Value("${input}") Resource resource) {
 
-        FlatFileItemReader<City> flatFileItemReader= new FlatFileItemReader<>();
+        FlatFileItemReader<City> flatFileItemReader = new FlatFileItemReader<>();
         flatFileItemReader.setResource(resource);
         flatFileItemReader.setName("CSV-Reader");
         flatFileItemReader.setLinesToSkip(1);
@@ -86,7 +89,7 @@ public class SpringBatchConfig {
     }
 
     @Bean
-    public StateDto stateDto(){
+    public StateDto stateDto() {
         return new StateDto();
     }
 }

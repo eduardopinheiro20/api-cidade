@@ -70,5 +70,5 @@ public class StateDto {
     public String toString() {
         return "State [uf=" + uf + ", numberOfCities=" + numberOfCities + "]";
     }
-    
+
 }

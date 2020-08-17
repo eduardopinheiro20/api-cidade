@@ -6,6 +6,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
+/**
+ *
+ * @author eduardo-pinheiro
+ *
+ */
 @Component
 public class Processor implements ItemProcessor<City, City> {
 
